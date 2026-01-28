@@ -15,7 +15,7 @@
 // // let vr = () => {
 // //   console.log("Hello");
 // // };
-// // const PromiseTwo = new Promise((resolve, reject) => {
+// // const PromiseTwo = new Promise((resolve, reject) => { 
 // //   console.log("Promise 2 is compelete!");
 // // });
 
