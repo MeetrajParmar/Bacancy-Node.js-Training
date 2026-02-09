@@ -52,14 +52,37 @@
 
 // console.log(merge2Obj(obj1, obj2));
 
-let [a, ...rest] = [1, 2, 3, 54];
+// let [a, ...rest] = [1, 2, 3, 54];
 
-console.log(a);
-console.log(rest);
+// console.log(a);
+// console.log(rest);
 
-function restExample(...rest) {
-  console.log(rest);
-}
+// function restExample(...rest) {
+//   console.log(rest);
+// }
 
-restExample(1, 2, 34, 5, "KEadsdasdasd");
-restExample(32);
+// restExample(1, 2, 34, 5, "KEadsdasdasd");
+// restExample(32);
+let arr = null;
+console.log(typeof arr);
+
+var expect = function (val) {
+  // console.log(val);
+  return {
+    toBe: function (num) {
+      if (val === num || typeof num === "object") {
+        return { value: true };
+      }
+    },
+    notToBe: function (num) {
+      if (val !== num) {
+        return { error: "Not Equal" };
+      }
+    },
+  };
+};
+
+console.log(expect(5).toBe(5));
+console.log(expect(5).notToBe(54));
+console.log(expect(5).toBe(null));
+// console.log(expect(5).notToBe(null));
