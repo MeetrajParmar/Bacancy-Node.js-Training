@@ -9,7 +9,7 @@
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all",
-    "db:migration:generate": "sequelize-cli migration:generate",
+    "db:migration:generate": "sequelize-cli migration:generate --name",
     "db:seed:generate": "sequelize-cli seed:generate",
     "db:seed": "sequelize-cli db:seed:all",
     "db:seed:undo": "sequelize-cli db:seed:undo:all"
