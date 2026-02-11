@@ -20,12 +20,15 @@ const server = createServer((req, res) => {
 
   //GET METHOD
   if (req.url === "/" && req.method === "GET") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>Welcome to the Server</h1>");
-    res.write("<h3>To Do List</h3>");
-    res.write(
-      `<h3>ID   TASK   COMPLETED</h3>\n<p>${todos[0].id}  ${todos[0].text} ${todos[0].compelete}\n<p>${todos[1].id}  ${todos[1].text} ${todos[1].compelete}</p>`,
-    );
+    res.writeHead(200, { "content-type": "application/json" });
+    // res.write("");
+    // res.write("<h3>To Do List</h3>");
+    // res.write(
+    //   `<h3>ID   TASK   COMPLETED</h3>\n<p>${todos[0].id}  ${todos[0].text} ${todos[0].compelete}\n<p>${todos[1].id}  ${todos[1].text} ${todos[1].compelete}</p>`,
+    // );
+    todos.forEach((ele) => {
+      res.write(`${ele.id} ${ele.text} ${ele.compelete} \n`);
+    });
     res.end();
     return;
   }
@@ -68,6 +71,7 @@ const server = createServer((req, res) => {
     }
     res.writeHead(200, { "content-type": "application/json" });
     res.end("DELETE SUCCESSFULL");
+    return;
   }
   res.writeHead(404, { "content-Type": "text/plain" });
   res.end("PAGE NOT FOUND");
@@ -76,10 +80,7 @@ const server = createServer((req, res) => {
 /*
 curl.exe -X DELETE "http://127.0.0.1:4000/3"
 
-
 Invoke-RestMethod -Method DELETE -Uri "http://127.0.0.1:4000/1"
-
-
 
 curl.exe -X POST "http://127.0.0.1:4000" ^
   -H "Content-Type: application/json" ^
