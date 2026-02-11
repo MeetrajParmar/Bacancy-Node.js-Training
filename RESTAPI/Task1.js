@@ -57,13 +57,13 @@ const server = createServer((req, res) => {
 
   //DELETE
   if (req.method === "DELETE") {
-    const id = Number(req.url.slice(3));
+    const id = Number(req.url.slice(req.url.length - 1));
 
     const index = todos.findIndex((todo) => todo.id === id);
 
     if (index === -1) {
       res.writeHead(404, { "content-type": "application/json" });
-      res.end("Task Not found");
+      res.end(`Task Not found:${id}`);
       return;
     }
     res.writeHead(200, { "content-type": "application/json" });
