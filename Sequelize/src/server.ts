@@ -1,7 +1,7 @@
 import express from "express"
-
 import { sequelize } from "./config/database";
 import userrouter from "./routes/userRoutes";
+import productRouter from "./routes/productRoutes";
 
 export const server = express();
 
@@ -23,3 +23,4 @@ server.listen(3000,()=>{
 
 
 server.use("/api/user",userrouter)
+server.use("/api/product",productRouter)

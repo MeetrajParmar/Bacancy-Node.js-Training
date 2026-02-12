@@ -2,9 +2,15 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 
 
-const Product=sequelize.define(
+export const Product=sequelize.define(
     'Product',
     {
+      id: {
+        type: DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
     name: {
       type: DataTypes.STRING(255),
       allowNull: false,
@@ -31,6 +37,17 @@ const Product=sequelize.define(
       allowNull: false,
       defaultValue: 0,
     },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
 },
 {
     tableName:"Product",
