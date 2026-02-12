@@ -24,3 +24,4 @@ server.listen(3000,()=>{
 
 server.use("/api/user",userrouter)
 server.use("/api/product",productRouter)
+
