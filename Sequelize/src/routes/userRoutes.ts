@@ -1,10 +1,16 @@
 import { Router } from "express";
-import { findUser, getAllUser,CUser,UUser } from "../controller/UserController";
+import {
+  findUser,
+  getAllUser,
+  UUser,
+  CUser,
+} from "../controller/UserController";
+// import { CreateUser } from "../controller/authController";
 
-const userRouter=Router();
+const userRouter = Router();
 
-userRouter.get("/",getAllUser);
-userRouter.get("/:id",findUser);
-userRouter.post("/",CUser);
-userRouter.patch("/",UUser);
-export default userRouter   
+userRouter.get("/", getAllUser);
+userRouter.get("/:id", findUser);
+userRouter.post("/", CUser);
+userRouter.patch("/", UUser);
+export default userRouter;
