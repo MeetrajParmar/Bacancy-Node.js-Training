@@ -23,6 +23,7 @@ module.exports = {
           stockQuantity: 50,
           createdAt: new Date(),
           updatedAt: new Date(),
+          userId: 4,
         },
         {
           name: "Mechanical Keyboard",
@@ -32,6 +33,7 @@ module.exports = {
           stockQuantity: 25,
           createdAt: new Date(),
           updatedAt: new Date(),
+          userId: 1,
         },
         {
           name: "USB-C Charger",
@@ -41,6 +43,7 @@ module.exports = {
           stockQuantity: 100,
           createdAt: new Date(),
           updatedAt: new Date(),
+          userId: 3,
         },
       ],
       {},

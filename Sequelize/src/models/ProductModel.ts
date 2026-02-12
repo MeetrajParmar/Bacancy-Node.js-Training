@@ -1,16 +1,15 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 
-
-export const Product=sequelize.define(
-    'Product',
-    {
-      id: {
-        type: DataTypes.BIGINT,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false,
-      },
+export const Product = sequelize.define(
+  "Product",
+  {
+    id: {
+      type: DataTypes.BIGINT,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING(255),
       allowNull: false,
@@ -37,21 +36,30 @@ export const Product=sequelize.define(
       allowNull: false,
       defaultValue: 0,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Users",
+        key: "id",
+      },
+    },
     createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      },
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
 
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-},
-{
-    tableName:"Product",
-    modelName:"Product",
-});
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+  },
+  {
+    tableName: "Product",
+    modelName: "Product",
+  },
+);
 
-console.log(Product===sequelize.models.Product);
+console.log(Product === sequelize.models.Product);
