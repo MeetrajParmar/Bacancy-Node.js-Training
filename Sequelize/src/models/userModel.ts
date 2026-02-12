@@ -2,9 +2,15 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 
 
-const User=sequelize.define(
-    'User',
+export const Users=sequelize.define(
+    'Users',
     {
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
     firstName:{
         type: DataTypes.STRING,
         allowNull:false,
@@ -12,11 +18,21 @@ const User=sequelize.define(
     lastName:{
         type:DataTypes.STRING,
         allowNull:false,
-    }
+    },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      },
 },
 {
-    tableName:"User",
-    modelName:"User",
+    tableName:"Users",
+    modelName:"Users",
 });
 
-console.log(User===sequelize.models.User);
+console.log(Users===sequelize.models.Users);

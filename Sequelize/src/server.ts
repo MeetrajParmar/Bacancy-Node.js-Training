@@ -1,9 +1,9 @@
 import express from "express"
 
 import { sequelize } from "./config/database";
+import userrouter from "./routes/userRoutes";
 
-
-const server = express();
+export const server = express();
 
 try {
     sequelize.authenticate()
@@ -20,3 +20,6 @@ try {
 server.listen(3000,()=>{
     console.log(`Server running at http://localhost:${3000}`)
 })
+
+
+server.use("/api/user",userrouter)
