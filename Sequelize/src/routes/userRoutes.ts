@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getAllUser,getAllProduct } from "../controller/UserController";
-
+import { findUser, getAllUser,CUser,UUser } from "../controller/UserController";
 
 const userRouter=Router();
 
 userRouter.get("/",getAllUser);
-userRouter.get("/",getAllProduct);
-
-export default userRouter
+userRouter.get("/:id",findUser);
+userRouter.post("/",CUser);
+userRouter.patch("/",UUser);
+export default userRouter   
