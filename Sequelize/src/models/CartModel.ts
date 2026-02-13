@@ -42,7 +42,7 @@ export const Cart = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
     },
-    updateAt: {
+    updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
       defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
@@ -53,5 +53,14 @@ export const Cart = sequelize.define(
     modelName: "Cart",
   },
 );
+// Cart.belongsTo(Product, {
+//   foreignKey: "productId",
+//   as: "product",
+// });
+
+// Cart.belongsTo(Users, {
+//   foreignKey: "userId",
+//   as: "user",
+// });
 
 console.log(Cart === sequelize.models.Cart);

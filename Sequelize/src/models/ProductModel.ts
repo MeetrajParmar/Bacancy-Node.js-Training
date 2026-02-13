@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 import { Users } from "./userModel";
+import { Cart } from "./CartModel";
 
 export const Product = sequelize.define(
   "Product",
@@ -63,4 +64,8 @@ export const Product = sequelize.define(
   },
 );
 
+// Product.hasMany(Cart, {
+//   foreignKey: "productId",
+//   as: "cartItems",
+// });
 console.log(Product === sequelize.models.Product);

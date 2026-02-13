@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
 import { Product } from "./ProductModel";
+import { Cart } from "./CartModel";
 
 export const Users = sequelize.define(
   "Users",
@@ -48,8 +49,13 @@ export const Users = sequelize.define(
   },
 );
 
-Users.hasMany(Product, {
-  foreignKey: "userId",
-  as: "productId", // Alias for the collection of products
-});
+// Users.hasMany(Product, {
+//   foreignKey: "userId",
+//   as: "products", // Alias for the collection of products
+// });
+
+// Users.hasMany(Cart, {
+//   foreignKey: "userId",
+//   as: "cartItems",
+// });
 console.log(Users === sequelize.models.Users);

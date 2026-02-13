@@ -5,7 +5,8 @@ import productRouter from "./routes/productRoutes";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRoutes";
 import cookieParser from "cookie-parser";
-
+import cartRoute from "./routes/cartRoutes";
+import { Users, Product, Cart } from "./models/assocation";
 dotenv.config();
 
 export const server = express();
@@ -31,3 +32,4 @@ server.use(express.json());
 server.use("/api/user", userrouter);
 server.use("/api/product", productRouter);
 server.use("/api/auth", authRouter);
+server.use("/api", cartRoute);
