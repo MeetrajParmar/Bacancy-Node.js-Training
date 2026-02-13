@@ -1,38 +1,43 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database";
+import { Product } from "./ProductModel";
 
-
-export const Users=sequelize.define(
-    'Users',
-    {
+export const Users = sequelize.define(
+  "Users",
+  {
     id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
-    firstName:{
-        type: DataTypes.STRING,
-        allowNull:false,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
     },
-    lastName:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-},
-{
-    tableName:"Users",
-    modelName:"Users",
-});
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+  },
+  {
+    tableName: "Users",
+    modelName: "Users",
+  },
+);
 
-console.log(Users===sequelize.models.Users);
+Users.hasMany(Product, {
+  foreignKey: "userId",
+  as: "productId", // Alias for the collection of products
+});
+console.log(Users === sequelize.models.Users);
