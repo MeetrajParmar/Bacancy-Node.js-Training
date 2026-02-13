@@ -19,10 +19,13 @@ export const createUser = async (userData: any) => {
     where: {
       firstName: userData.firstName,
       lastName: userData.lastName,
+      email: userData.email,
     },
     defaults: {
       firstName: userData.firstName,
       lastName: userData.lastName,
+      email: userData.email,
+      password: userData.password,
     },
   });
   return [response, exist];
@@ -45,7 +48,6 @@ export const loginUser = async (userData: any) => {
   const response = await Users.findOne({
     where: {
       email: userData.email,
-      password: userData.password,
     },
   });
   return response;

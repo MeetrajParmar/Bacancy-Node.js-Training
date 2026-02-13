@@ -11,6 +11,10 @@ export const Users = sequelize.define(
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,6 +22,14 @@ export const Users = sequelize.define(
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,

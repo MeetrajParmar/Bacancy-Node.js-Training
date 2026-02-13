@@ -9,12 +9,15 @@ export const LoginUser = async (req: Request, res: Response) => {
   try {
     const response = await loginUser(req.body);
     if (!response) {
-      //   throw new Error(`User is not valid`);
       return res.status(201).json({ message: "User Invalid", user: response });
     }
-
-    // const email = req.body.email;
-    // const userId = response.dataValues.id;
+    const password = response.dataValues.password;
+    if (password !== req.body.password) {
+      return res.status(403).json({
+        message: "Password Mismatch",
+        user: response.dataValues.email,
+      });
+    }
 
     const token = jwt.sign(
       { email: req.body.email, userId: response.dataValues.id },
