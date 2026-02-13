@@ -1,4 +1,8 @@
-import { getAllProductData, getProductDetail } from "../service/productService";
+import {
+  getAllProductData,
+  getProductDetail,
+  getUserDetail,
+} from "../service/productService";
 import { Request, Response } from "express";
 
 export const getAllProduct = async (req: Request, res: Response) => {
@@ -20,5 +24,20 @@ export const getName = async (req: Request, res: Response) => {
     return res.status(200).json(pdetail);
   } catch (er: any) {
     return res.status(400).json({ error: er.message });
+  }
+};
+
+export const getUserProduct = async (req: Request, res: Response) => {
+  try {
+    const productName = req.params.name;
+    const ProductDetail = await getProductDetail(productName as string);
+    if (!ProductDetail) {
+      return res.status(401).json({ message: `Product Not Found` });
+    }
+    const userId = ProductDetail?.dataValues.userId;
+    const userDetail = await getUserDetail(userId);
+    return res.status(200).json({ userDetail });
+  } catch (er: any) {
+    return res.status(401).json({ error: er.message });
   }
 };

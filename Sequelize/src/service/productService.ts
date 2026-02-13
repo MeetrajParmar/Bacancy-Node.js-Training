@@ -1,4 +1,5 @@
 import { Product } from "../models/ProductModel";
+import { Users } from "../models/userModel";
 
 export const getAllProductData = async () => {
   const productData = await Product.findAll();
@@ -12,4 +13,13 @@ export const getProductDetail = async (productName: string) => {
     },
   });
   return productDetail;
+};
+
+export const getUserDetail = async (data: any) => {
+  const UserDetail = await Users.findOne({
+    where: {
+      id: data,
+    },
+  });
+  return UserDetail;
 };
