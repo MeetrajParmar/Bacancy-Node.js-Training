@@ -5,6 +5,7 @@ import {
   UUser,
   CUser,
 } from "../controller/UserController";
+import { LoginUser } from "../middleware/authMiddleware";
 // import { CreateUser } from "../controller/authController";
 
 const userRouter = Router();

@@ -4,7 +4,10 @@ import userrouter from "./routes/userRoutes";
 import productRouter from "./routes/productRoutes";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRoutes";
+import cookieParser from "cookie-parser";
+
 dotenv.config();
+
 export const server = express();
 
 try {
@@ -23,6 +26,7 @@ server.listen(3000, () => {
   console.log(`Server running at http://localhost:${3000}`);
 });
 
+server.use(cookieParser());
 server.use(express.json());
 server.use("/api/user", userrouter);
 server.use("/api/product", productRouter);
