@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { loginUser } from "../service/userService";
+import { salt } from "../controller/UserController";
+import bcrypt from "bcryptjs";
 
 dotenv.config();
 
@@ -11,8 +13,12 @@ export const LoginUser = async (req: Request, res: Response) => {
     if (!response) {
       return res.status(201).json({ message: "User Invalid", user: response });
     }
-    const password = response.dataValues.password;
-    if (password !== req.body.password) {
+    // const password = response.dataValues.password;
+    const isMatch = await bcrypt.compare(
+      req.body.password,
+      response.dataValues.password,
+    );
+    if (!isMatch) {
       return res.status(403).json({
         message: "Password Mismatch",
         user: response.dataValues.email,

@@ -17,8 +17,6 @@ export const getOneUserData = async (id: number) => {
 export const createUser = async (userData: any) => {
   const [response, exist] = await Users.findOrCreate({
     where: {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
       email: userData.email,
     },
     defaults: {

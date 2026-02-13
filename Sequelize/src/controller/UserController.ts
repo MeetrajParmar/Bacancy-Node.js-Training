@@ -5,7 +5,9 @@ import {
   createUser,
   updateUser,
 } from "../service/userService";
+import bcrypt from "bcryptjs";
 
+export const salt = bcrypt.genSaltSync(10);
 export const getAllUser = async (req: Request, res: Response) => {
   try {
     const data = await getAllUserData();
@@ -31,9 +33,14 @@ export const findUser = async (req: Request, res: Response) => {
 
 export const CUser = async (req: Request, res: Response) => {
   try {
+    // const salt = bcrypt.genSaltSync(10);
+
+    const password = req.body.password;
+    const hash = await bcrypt.hashSync(password, salt);
+    req.body.password = hash;
     const createRes = await createUser(req.body);
-    if (createRes === null) {
-      throw new Error(`User Not Created!`);
+    if (!createRes[1]) {
+      return res.status(409).json(`User Already Exist`);
     }
     return res.status(201).json(createRes);
   } catch (error: any) {
