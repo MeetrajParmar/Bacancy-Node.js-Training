@@ -14,32 +14,32 @@ module.exports = {
      */
     await queryInterface.bulkInsert("Cart", [
       {
-        userId: 4,
-        productId: 1,
+        userId: 32,
+        productId: 10,
         quantity: 5,
         totalBill: 800,
       },
       {
-        userId: 2,
-        productId: 3,
+        userId: 35,
+        productId: 12,
         quantity: 5,
         totalBill: 155,
       },
       {
-        userId: 3,
-        productId: 1,
+        userId: 39,
+        productId: 10,
         quantity: 1,
         totalBill: 150,
       },
       {
-        userId: 4,
-        productId: 2,
+        userId: 36,
+        productId: 11,
         quantity: 1,
         totalBill: 100,
       },
       {
-        userId: 4,
-        productId: 1,
+        userId: 33,
+        productId: 10,
         quantity: 1,
         totalBill: 50,
       },
