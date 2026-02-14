@@ -23,3 +23,20 @@ export const getUserDetail = async (data: any) => {
   });
   return UserDetail;
 };
+
+export const addProduct = async (data: any) => {
+  const addproduct = await Product.findOrCreate({
+    where: {
+      name: data.name,
+    },
+    defaults: {
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      costPrice: data.costPrice,
+      stockQuantity: data.stockQuantity,
+      userId: data.userId,
+    },
+  });
+  return addproduct;
+};

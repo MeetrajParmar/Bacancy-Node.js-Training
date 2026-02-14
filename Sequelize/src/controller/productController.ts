@@ -2,6 +2,7 @@ import {
   getAllProductData,
   getProductDetail,
   getUserDetail,
+  addProduct,
 } from "../service/productService";
 import { Request, Response } from "express";
 
@@ -39,5 +40,22 @@ export const getUserProduct = async (req: Request, res: Response) => {
     return res.status(200).json({ userDetail });
   } catch (er: any) {
     return res.status(401).json({ error: er.message });
+  }
+};
+
+export const AddProduct = async (req: Request, res: Response) => {
+  try {
+    const addResponse = await addProduct(req.body);
+    const isExist = addResponse[1];
+    if (!isExist) {
+      return res.status(400).json("Product Exist only!!");
+    }
+    // console.log(addResponse);
+    // if (!addResponse) {
+    //   return res.status(400).json("Product Not be able to create!");
+    // }
+    return res.status(200).json({ data: addResponse[0] });
+  } catch (err: any) {
+    return res.json({ error: err.message });
   }
 };
