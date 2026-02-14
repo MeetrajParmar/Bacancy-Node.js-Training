@@ -5,6 +5,7 @@ import {
   createUser,
   updateUser,
   loginUser,
+  addToCart,
 } from "../service/userService";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -117,6 +118,26 @@ export const logout = async (req: Request, res: Response) => {
   res.status(201).json({ message: "Login out Succesfull" });
   try {
   } catch (e: any) {
-    return res.status(401).json({ error: e.message });
+    return res.json({ error: e.message });
+  }
+};
+
+export const addtoCart = async (req: Request, res: Response) => {
+  try {
+    //console.log(req.body);
+    const addtoCartResponse = await addToCart(req.body);
+    const isExist = addtoCartResponse[1];
+    if (!isExist) {
+      return res
+        .status(401)
+        .json({ success: false, error: "Already Placed Order!!" });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Order Placed",
+      data: addtoCartResponse,
+    });
+  } catch (e: any) {
+    return res.json({ error: e.message });
   }
 };

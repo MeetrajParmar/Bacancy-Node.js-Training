@@ -1,4 +1,5 @@
 import { Users } from "../models/userModel";
+import { Cart } from "../models/assocation";
 
 export const getAllUserData = async () => {
   const data = await Users.findAll();
@@ -46,6 +47,24 @@ export const loginUser = async (userData: any) => {
   const response = await Users.findOne({
     where: {
       email: userData.email,
+    },
+  });
+  return response;
+};
+
+export const addToCart = async (userData: any) => {
+  const { userId, productId, quantity, totalBill } = userData;
+  const response = await Cart.findCreateFind({
+    where: {
+      productId: productId,
+      quantity: quantity,
+      totalBill: totalBill,
+    },
+    defaults: {
+      userId: userId,
+      productId: productId,
+      quantity: quantity,
+      totalBill: totalBill,
     },
   });
   return response;

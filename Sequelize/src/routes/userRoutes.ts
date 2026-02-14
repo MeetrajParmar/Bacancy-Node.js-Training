@@ -5,7 +5,9 @@ import {
   UUser,
   CUser,
   LoginUser,
+  addtoCart,
 } from "../controller/UserController";
+import { verifyUser } from "../middleware/verifyMiddleware";
 
 // import { CreateUser } from "../controller/authController";
 
@@ -16,4 +18,5 @@ userRouter.get("/:id", findUser);
 userRouter.post("/", CUser);
 userRouter.patch("/", UUser);
 userRouter.post("/login", LoginUser);
+userRouter.post("/addtocart", verifyUser, addtoCart);
 export default userRouter;
