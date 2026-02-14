@@ -6,6 +6,7 @@ import {
   updateUser,
   loginUser,
   addToCart,
+  getuserbyName,
 } from "../service/userService";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -69,14 +70,25 @@ export const LoginUser = async (
 export const findUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    let data;
     const IntId = Number(id);
-    const data = await getOneUserData(IntId);
+    if (typeof IntId === "number") {
+      data = await getOneUserData(IntId);
+    } else if (typeof id === "string") {
+      const fullName = id;
+      //console.log(fullName.split(" ")[1]);
+      const firstName = fullName.split(" ")[0];
+      const lastName = fullName.split(" ")[1];
+      data = await getuserbyName({ firstName: firstName, lastName: lastName });
+    }
+
+    //const data = await getOneUserData(Number(id));
     if (data === null) {
       throw new Error(`User not Found`);
     }
     return res.status(200).json(data);
   } catch (error: any) {
-    return res.status(400).json({ error: error.message });
+    return res.status(401).json({ error: error.message });
   }
 };
 

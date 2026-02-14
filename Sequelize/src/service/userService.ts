@@ -1,6 +1,11 @@
 import { Users } from "../models/userModel";
 import { Cart } from "../models/assocation";
+import { where } from "sequelize";
 
+type Fullname = {
+  firstName: string;
+  lastName: string;
+};
 export const getAllUserData = async () => {
   const data = await Users.findAll();
   return data;
@@ -10,6 +15,16 @@ export const getOneUserData = async (id: number) => {
   const data = await Users.findOne({
     where: {
       id: id,
+    },
+  });
+  return data;
+};
+
+export const getuserbyName = async (name: any) => {
+  const data = await Users.findOne({
+    where: {
+      firstName: name.firstName,
+      lastName: name.lastName,
     },
   });
   return data;
