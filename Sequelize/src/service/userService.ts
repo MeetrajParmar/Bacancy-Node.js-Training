@@ -35,13 +35,12 @@ export const createUser = async (userData: any) => {
     where: {
       email: userData.email,
     },
-    // defaults: {
-    //   firstName: userData.firstName,
-    //   lastName: userData.lastName,
-    //   email: userData.email,
-    //   password: userData.password,
-    // },
-    defaults: userData,
+    defaults: {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      password: userData.password,
+    },
   });
   return [response, exist];
 };
@@ -84,4 +83,16 @@ export const addToCart = async (userData: any) => {
     },
   });
   return response;
+};
+
+export const profile = async (userdata: number) => {
+  const data = await Users.findOne({
+    where: {
+      id: userdata,
+    },
+    attributes: {
+      exclude: ["password", "createAt", "updateAt", "age"],
+    },
+  });
+  return data;
 };

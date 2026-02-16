@@ -19,6 +19,12 @@ export const verifyUser = async (
     req.body.email = email;
     req.body.userId = userId;
 
+    // req.user = {
+    //   email: decoded.email,
+    //   userId: decoded.userId,
+    // };
+    console.log(req.body);
+
     next();
   } catch (er: any) {
     return res.status(401).json({ error: er.message });

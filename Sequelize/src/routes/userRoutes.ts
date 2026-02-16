@@ -6,6 +6,7 @@ import {
   CUser,
   LoginUser,
   addtoCart,
+  profile1,
 } from "../controller/UserController";
 import { verifyUser } from "../middleware/verifyMiddleware";
 
@@ -14,6 +15,7 @@ import { verifyUser } from "../middleware/verifyMiddleware";
 const userRouter = Router();
 
 userRouter.get("/", getAllUser);
+userRouter.get("/profile", verifyUser, profile1);
 userRouter.get("/:id", findUser);
 userRouter.post("/", CUser);
 userRouter.patch("/", UUser);

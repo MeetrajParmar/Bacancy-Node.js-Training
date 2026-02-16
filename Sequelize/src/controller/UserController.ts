@@ -7,6 +7,7 @@ import {
   loginUser,
   addToCart,
   getuserbyName,
+  profile,
 } from "../service/userService";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -77,8 +78,9 @@ export const findUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     let data;
     const IntId = Number(id);
+    req.body.userId = IntId;
     if (typeof IntId === "number") {
-      data = await getOneUserData(IntId);
+      data = await getOneUserData(req.body);
     } else if (typeof id === "string") {
       const fullName = id;
       //console.log(fullName.split(" ")[1]);
@@ -102,7 +104,9 @@ export const CUser = async (req: Request, res: Response) => {
     // const salt = bcrypt.genSaltSync(10);
     const { firstName, lastName, email } = req.body;
     if (!firstName || !lastName || !email) {
-      throw new Error("Provide all Detail");
+      throw new Error(
+        `Provide all Detail: FirstName ${firstName} LastName:${lastName} Email:${email}`,
+      );
     }
     const password = req.body.password;
     if (password.length < 6) {
@@ -166,5 +170,22 @@ export const addtoCart = async (req: Request, res: Response) => {
     });
   } catch (e: any) {
     return res.status(400).json({ error: e.message });
+  }
+};
+
+export const profile1 = async (req: Request, res: Response) => {
+  try {
+    const userId = req.body.userId;
+
+    // Debugging: Ensure this prints a number/string, not an object
+    console.log("User ID being passed to service:");
+
+    const user = await profile(userId);
+    if (!user) {
+      throw new Error(`Profile not Avaliable!`);
+    }
+    return res.status(209).json({ success: true, userData: user });
+  } catch (error: any) {
+    return res.status(400).json({ success: false, error: error.message });
   }
 };
