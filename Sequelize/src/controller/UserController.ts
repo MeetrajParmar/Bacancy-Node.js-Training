@@ -18,6 +18,9 @@ export const salt = bcrypt.genSaltSync(10);
 export const getAllUser = async (req: Request, res: Response) => {
   try {
     const data = await getAllUserData();
+    if (!data) {
+      throw new Error("NO User Available!");
+    }
     return res.status(200).json(data);
   } catch (err: any) {
     return res.status(400).json({ error: err.message });
@@ -33,7 +36,8 @@ export const LoginUser = async (
     console.log(req.body);
     const response = await loginUser(req.body);
     if (!response) {
-      return res.status(201).json({ message: "User Invalid", user: response });
+      // return res.status(201).json({ message: "User Invalid", user: response });
+      throw new Error(`Requested User is invalid!`);
     }
     // const password = response.dataValues.password;
     const isMatch = await bcrypt.compare(
@@ -41,10 +45,11 @@ export const LoginUser = async (
       response.dataValues.password,
     );
     if (!isMatch) {
-      return res.status(403).json({
-        message: "Password Mismatch",
-        user: response.dataValues.email,
-      });
+      // return res.status(403).json({
+      //   message: "Password Mismatch",
+      //   user: response.dataValues.email,
+      // });
+      throw new Error(`Password Mistmatch! User:${response.dataValues.email}`);
     }
 
     const token = jwt.sign(
@@ -63,7 +68,7 @@ export const LoginUser = async (
     // next();
     return res.status(200).json({ message: "Login successful", token: token });
   } catch (er: any) {
-    return res.status(401).json({ error: er.message });
+    return res.status(400).json({ error: er.message });
   }
 };
 
@@ -88,7 +93,7 @@ export const findUser = async (req: Request, res: Response) => {
     }
     return res.status(200).json(data);
   } catch (error: any) {
-    return res.status(401).json({ error: error.message });
+    return res.json({ error: error.message });
   }
 };
 
@@ -101,7 +106,8 @@ export const CUser = async (req: Request, res: Response) => {
     req.body.password = hash;
     const createRes = await createUser(req.body);
     if (!createRes[1]) {
-      return res.status(409).json(`User Already Exist`);
+      // return res.status(409).json(`User Already Exist`);
+      throw new Error("User already Exist!");
     }
     return res.status(201).json(createRes);
   } catch (error: any) {
@@ -113,7 +119,8 @@ export const UUser = async (req: Request, res: Response) => {
   try {
     const UpdateUser = await updateUser(req.body);
     if (UpdateUser === null) {
-      throw new Error(`Update User Not availiable`);
+      // return res.status(400).json(`Requested User not Available!`);
+      throw new Error("Requested User not Available!");
     }
     return res.status(201).json(UpdateUser);
   } catch (err: any) {
@@ -124,13 +131,14 @@ export const UUser = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(402).json({ error: "Please Login" });
+    // return res.status(402).json({ error: "Please Login" });
+    throw new Error("Please Login!");
   }
   res.clearCookie("token");
   res.status(201).json({ message: "Login out Succesfull" });
   try {
   } catch (e: any) {
-    return res.json({ error: e.message });
+    return res.status(400).json({ error: e.message });
   }
 };
 
@@ -140,9 +148,10 @@ export const addtoCart = async (req: Request, res: Response) => {
     const addtoCartResponse = await addToCart(req.body);
     const isExist = addtoCartResponse[1];
     if (!isExist) {
-      return res
-        .status(401)
-        .json({ success: false, error: "Already Placed Order!!" });
+      // return res
+      //   .status(401)
+      //   .json({ success: false, error: "Already Placed Order!!" });
+      throw new Error("Order already Placed!");
     }
     return res.status(200).json({
       success: true,
@@ -150,6 +159,6 @@ export const addtoCart = async (req: Request, res: Response) => {
       data: addtoCartResponse,
     });
   } catch (e: any) {
-    return res.json({ error: e.message });
+    return res.status(400).json({ error: e.message });
   }
 };
