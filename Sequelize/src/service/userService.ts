@@ -35,12 +35,13 @@ export const createUser = async (userData: any) => {
     where: {
       email: userData.email,
     },
-    defaults: {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-      password: userData.password,
-    },
+    // defaults: {
+    //   firstName: userData.firstName,
+    //   lastName: userData.lastName,
+    //   email: userData.email,
+    //   password: userData.password,
+    // },
+    defaults: userData,
   });
   return [response, exist];
 };

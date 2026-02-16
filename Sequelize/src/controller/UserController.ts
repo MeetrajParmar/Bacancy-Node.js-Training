@@ -100,8 +100,14 @@ export const findUser = async (req: Request, res: Response) => {
 export const CUser = async (req: Request, res: Response) => {
   try {
     // const salt = bcrypt.genSaltSync(10);
-
+    const { firstName, lastName, email } = req.body;
+    if (!firstName || !lastName || !email) {
+      throw new Error("Provide all Detail");
+    }
     const password = req.body.password;
+    if (password.length < 6) {
+      throw new Error("Password must be 6 Length!!");
+    }
     const hash = await bcrypt.hashSync(password, salt);
     req.body.password = hash;
     const createRes = await createUser(req.body);
