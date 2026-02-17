@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/authRoutes";
 import cookieParser from "cookie-parser";
 import cartRoute from "./routes/cartRoutes";
+import cors from "cors";
 import { Users, Product, Cart } from "./models/assocation";
 dotenv.config();
 
@@ -26,6 +27,13 @@ try {
 server.listen(3000, () => {
   console.log(`Server running at http://localhost:${3000}`);
 });
+
+server.use(
+  cors({
+    origin: "http://localhost:5173", // Vite frontend
+    credentials: true,
+  }),
+);
 
 server.use(cookieParser());
 server.use(express.json());

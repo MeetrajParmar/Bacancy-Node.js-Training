@@ -63,8 +63,9 @@ export const LoginUser = async (
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: true,
+      sameSite: "none", // Allow cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     // next();
     return res.status(200).json({ message: "Login successful", token: token });
@@ -184,7 +185,7 @@ export const profile1 = async (req: Request, res: Response) => {
     if (!user) {
       throw new Error(`Profile not Avaliable!`);
     }
-    return res.status(209).json({ success: true, userData: user });
+    return res.status(200).json({ success: true, userData: user });
   } catch (error: any) {
     return res.status(400).json({ success: false, error: error.message });
   }
